@@ -706,13 +706,6 @@ void intcox_pava( int *n, double *x, double *w )
   double *weight = ( double* ) calloc(*n, sizeof(double));
   double *ghat = ( double* ) calloc(*n, sizeof(double));
 
-  if (!index || !weight || !ghat) {
-    free(index);
-    free(weight);
-    free(ghat);
-    return;
-  }
-
 	double nw;					
 	int ci, j, nn;				
   nn=*n-1;						
