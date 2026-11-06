@@ -6,6 +6,7 @@ extern void fake( int *n, double* x, double* w );
 extern void fitm( int* n, double* x, double* w );
 extern void wmrmnh( int* n, double* x, double* w );
 extern void amalgm( int* n, double* x, double* w );
+extern void amalgm_iterations( int* n, double* x, double* w, int *iterations_vec );
 extern void pav( int* n, double* x, double* w );
 extern void isoreg( int* n, double* x, double* w );
 extern void iso_pava( int* n, double* x, double* w );
@@ -32,6 +33,7 @@ static const R_CMethodDef CEntries[] = {
   {"fitm",         ( DL_FUNC ) &fitm,         3},
   {"wmrmnh",       ( DL_FUNC ) &wmrmnh,       3},
   {"amalgm",       ( DL_FUNC ) &amalgm,       3},
+  {"amalgm_iterations", ( DL_FUNC ) &amalgm_iterations, 4},
   {"pav",          ( DL_FUNC ) &pav,          3},
   {"isoreg",       ( DL_FUNC ) &isoreg,       3},
   {"iso_pava",     ( DL_FUNC ) &iso_pava,     3},

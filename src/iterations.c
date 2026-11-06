@@ -143,6 +143,8 @@ void amalgm_iterations( int* n, double* x, double* w, int *iterations_vec )
 {
   x--; 
   w--;
+  iterations_vec--;
+  for ( size_t i = 1; i <= *n; i++ ) iterations_vec[i] = 0;
   const long double tol = 1.0E-6;
   double* xt = ( double* ) calloc( *n + 1, sizeof( double ) );
   double* wt = ( double* ) calloc( *n + 1, sizeof( double ) );
@@ -156,6 +158,7 @@ void amalgm_iterations( int* n, double* x, double* w, int *iterations_vec )
     if ( i == m ) break;
     if ( i != m && xt[i] > xt[i + 1] ) {
       size_t i1 = i + 1;
+      iterations_vec[*n - ( m - i1 )]++;
       long double ww = wt[i] + wt[i1];
       xt[i] = ( wt[i] * xt[i] + wt[i1] * xt[i1] ) / ww;
       wt[i] = ww;
@@ -171,6 +174,7 @@ void amalgm_iterations( int* n, double* x, double* w, int *iterations_vec )
       if ( m == 1 ) break;
       while ( i != 1 && xt[i - 1] > xt[i] ) {
         size_t im1 = i - 1;
+        iterations_vec[*n - ( m - i )]++;
         long double ww = wt[im1] + wt[i];
         xt[im1] = ( wt[im1] * xt[im1] + wt[i] * xt[i] ) / ww;
         wt[im1] = ww;
