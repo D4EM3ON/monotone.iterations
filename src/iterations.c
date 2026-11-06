@@ -99,6 +99,8 @@ void wmrmnh_iterations( int* n, double* x, double* w, int *iterations_vec )
 {
   x--; 
   w--;
+  iterations_vec--;
+  for ( size_t i = 1; i <= *n; i++ ) iterations_vec[i] = 0;
   size_t lovbkh = 0;
   long double wovbkh = 0.0L;
   size_t luph = 0;
@@ -109,6 +111,7 @@ void wmrmnh_iterations( int* n, double* x, double* w, int *iterations_vec )
       long double sw = w[iup];
       size_t idown = iup;
       do {
+        iterations_vec[iup]++;
         idown -= 1;
         if ( luph == idown ) {
           sds += wovbkh * x[luph];
