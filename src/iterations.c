@@ -212,6 +212,7 @@ void pav_iterations( int* n, double* x, double* w, int *iterations_vec )
 {
   x--;
   w--;
+  iterations_vec--;
   size_t* nw = ( size_t* ) calloc( *n + 1, sizeof( size_t ) );
   double* fx = ( double* ) calloc( *n + 1, sizeof( double ) );
   double* pw = ( double* ) calloc( *n + 1, sizeof( double ) );
@@ -225,12 +226,15 @@ void pav_iterations( int* n, double* x, double* w, int *iterations_vec )
     wt[i] = w[i];
     pw[i] = wt[i] * fx[i];
     w1[i] = w[i];
+    iterations_vec[i] = 0;
   }
   size_t icount = 0;
   size_t ibel = *n - 1;
   do {
     size_t i = 0;
+    size_t before = 0;
     while ( true ) {
+      before += nw[i];
       i = i + 1;
       bool ct = false;
       while ( i <= ibel ) {
@@ -241,6 +245,7 @@ void pav_iterations( int* n, double* x, double* w, int *iterations_vec )
         w1[i] += w1[i1];
         fx[i] = pw[i] / w1[i];
         nw[i] += nw[i1];
+        iterations_vec[before + nw[i]]++;
         nwc = nwc - 1;
         if ( i1 <= ibel ) {
           for ( size_t j = i1; j <= ibel; j++ ) {
