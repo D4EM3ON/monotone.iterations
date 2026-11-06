@@ -315,25 +315,31 @@ void iso_pava_iterations( int* n, double* x, double* w, int* iterations_vec )
 {
   x--;
   w--;
+  iterations_vec--;
   int* kt = ( int* ) calloc( *n + 1, sizeof( int ) );
   bool same;
-  for ( size_t i = 1; i <= *n; i++ ) kt[i] = i;
+  for ( size_t i = 1; i <= *n; i++ ) {
+    kt[i] = i;
+    iterations_vec[i] = 0;
+  }
   while ( true ) {
     same = true;
     for ( size_t i = 2; i <= *n; i++ ) {
-      iterations_vec[i] = 0;//TODO???
       if ( x[i - 1] > x[i] ) {
         size_t k1 = kt[i];
         size_t k2 = kt[i - 1];
         for ( size_t j = 1; j <= *n; j++ ) if ( kt[j] == k1 ) kt[j] = k2;
         long double wnew = w[i - 1] + w[i];
         long double ynew = ( w[i - 1] * x[i - 1] + w[i] * x[i] ) / wnew;
+        size_t last = i;
         for ( size_t j = 1; j <= *n; j++ ) {
           if ( kt[j] == k2 ) {
             x[j] = ynew;
             w[j] = wnew;
+            last = j;
           }
         }
+        iterations_vec[last]++;
         same = false;
       }
     }

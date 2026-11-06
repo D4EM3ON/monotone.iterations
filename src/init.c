@@ -9,6 +9,7 @@ extern void amalgm( int* n, double* x, double* w );
 extern void pav( int* n, double* x, double* w );
 extern void isoreg( int* n, double* x, double* w );
 extern void iso_pava( int* n, double* x, double* w );
+extern void iso_pava_iterations( int* n, double* x, double* w, int *iterations_vec );
 extern void isotonic( int* n, double* x, double* w );
 extern void isomean( int* n, double* x, double* w );
 extern void isomean_iterations( int* n, double* x, double* w, int *iterations_vec );
@@ -35,6 +36,7 @@ static const R_CMethodDef CEntries[] = {
   {"pav",          ( DL_FUNC ) &pav,          3},
   {"isoreg",       ( DL_FUNC ) &isoreg,       3},
   {"iso_pava",     ( DL_FUNC ) &iso_pava,     3},
+  {"iso_pava_iterations", ( DL_FUNC ) &iso_pava_iterations, 4},
   {"isotonic",     ( DL_FUNC ) &isotonic,     3},
   {"isomean_iterations",      ( DL_FUNC ) &isomean_iterations,      4},
   {"pooled_pava",  ( DL_FUNC ) &pooled_pava,  3},
