@@ -288,19 +288,22 @@ void isoreg_iterations( int *n, double* x, double* w, int *iterations_vec )
   for ( size_t i = 0; i < *n; i++ ) {
     tmp += x[i];
     xc[i + 1] = tmp;
-    iterations_vec[i] = 0;//TODO???
+    iterations_vec[i] = 0;
   }
   size_t known = 0;
   size_t ip = 0;
   do {
     long double slope = 1.7E308L;
+    int checks = 0;
     for ( size_t i = known + 1; i <= *n; i++ ) {
+      checks++;
       long double tmp = ( xc[i] - xc[known] ) / ( long double ) ( i - known );
       if ( tmp < slope ) {
         slope = tmp;
         ip = i;
       }
     }
+    iterations_vec[ip - 1] += checks;
     for ( size_t i = known; i < ip; i++ ) x[i] = ( xc[ip] - xc[known] ) / ( long double ) ( ip - known );
   }
   while ( ( known = ip ) < *n );

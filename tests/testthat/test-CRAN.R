@@ -25,7 +25,8 @@ test_that("correct mean output for C funs", {
     "isoreg_dp_weights_iterations",
     "isomean_iterations",
     "monotoneC_iterations",
-    "intcox_pava_iterations"
+    "intcox_pava_iterations",
+    "isoreg_iterations"
   )) {
     L <- .C(
       C_fun_name,
